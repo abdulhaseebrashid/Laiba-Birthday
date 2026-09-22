@@ -55,9 +55,10 @@ export function RomanticButton({ onClick, children, className = '', variant = 'p
 
   return (
     <motion.button
+      type="button"
       id={id}
       disabled={disabled}
-      className={`btn-romantic relative px-7 py-4 rounded-2xl text-base font-medium select-none overflow-hidden ${className}`}
+      className={`btn-romantic relative px-7 py-4 rounded-2xl text-base font-medium select-none overflow-hidden cursor-pointer z-30 ${className}`}
       style={styleMap[variant]}
       whileHover={disabled ? {} : { scale: 1.05, boxShadow: variant === 'primary' ? '0 8px 40px rgba(244,63,94,0.65), inset 0 1px 0 rgba(255,255,255,0.18)' : variant === 'fire' ? '0 8px 40px rgba(255,77,109,0.7)' : undefined }}
       whileTap={disabled ? {} : { scale: 0.95 }}

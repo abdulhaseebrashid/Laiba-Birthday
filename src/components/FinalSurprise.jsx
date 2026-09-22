@@ -166,8 +166,9 @@ export default function FinalSurprise() {
     sounds.playCelebration();
   }, []);
 
-  const handleSurprise = () => {
-    voice.speakFinalSurprise();
+  const handleSurprise = (e) => {
+    e?.stopPropagation?.();
+    try { voice.speakFinalSurprise(); } catch {}
     setShowModal(true);
     setShowConfetti(true);
     setTimeout(() => setShowConfetti(false), 4500);
