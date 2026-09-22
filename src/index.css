@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@600;700&display=swap');
+@import "tailwindcss";
+
+/* ─── CSS Custom Properties ─── */
+:root {
+  --color-rose: #f43f5e;
+  --color-rose-light: #fb7185;
+  --color-rose-dark: #be123c;
+  --color-blush: #fda4af;
+  --color-deep: #0d0814;
+  --color-deep-2: #160a22;
+  --color-card: rgba(255, 255, 255, 0.055);
+  --color-card-border: rgba(255, 255, 255, 0.11);
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-script: 'Dancing Script', cursive;
+}
+
+/* ─── Reset & Base ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-deep);
+  color: white;
+  overflow-x: hidden;
+  min-height: 100dvh;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Typography helpers ─── */
+.font-serif  { font-family: var(--font-serif); }
+.font-script { font-family: var(--font-script); }
+
+/* ─── Glassmorphism ─── */
+.glass {
+  background: var(--color-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-card-border);
+  border-radius: 24px;
+}
+.glass-strong {
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 24px;
+}
+
+/* ─── Gradient text ─── */
+.gradient-text {
+  background: linear-gradient(135deg, #fda4af 0%, #f43f5e 45%, #e11d48 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Shimmer ─── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.shimmer-text {
+  background: linear-gradient(90deg, #fda4af, #f43f5e, #fda4af, #fb7185, #fda4af);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(244,63,94,0.4); border-radius: 2px; }
+
+/* ─── Page container ─── */
+.page-container {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ─── Ambient orbs ─── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  will-change: transform;
+}
+.orb-rose   { background: radial-gradient(circle, rgba(244,63,94,0.45)  0%, transparent 70%); }
+.orb-purple { background: radial-gradient(circle, rgba(168,85,247,0.30)  0%, transparent 70%); }
+.orb-pink   { background: radial-gradient(circle, rgba(236,72,153,0.28) 0%, transparent 70%); }
+.orb-fire   { background: radial-gradient(circle, rgba(251,113,0,0.30)  0%, transparent 70%); }
+
+/* ─── Floating hearts (global, always on) ─── */
+.heart-float {
+  position: fixed;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+  z-index: 5;
+  animation: floatUp var(--duration,4s) var(--delay,0s) ease-in-out infinite;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(0)      scale(1)   rotate(var(--rot,0deg)); opacity: 0; }
+  10%  { opacity: 0.85; }
+  90%  { opacity: 0.35; }
+  100% { transform: translateY(-100vh) scale(0.5) rotate(calc(var(--rot,0deg) + 25deg)); opacity: 0; }
+}
+
+/* ─── Rose petals ─── */
+.rose-petal {
+  position: fixed;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+  z-index: 4;
+  animation: petalFall var(--pdur,6s) var(--pdel,0s) ease-in-out infinite;
+}
+@keyframes petalFall {
+  0%   { transform: translateY(-5%) translateX(0) rotate(0deg) scale(1); opacity: 0; }
+  5%   { opacity: 0.7; }
+  85%  { opacity: 0.4; }
+  100% { transform: translateY(105vh) translateX(var(--px,30px)) rotate(var(--prot,360deg)) scale(0.6); opacity: 0; }
+}
+
+/* ─── Confetti ─── */
+.confetti-piece {
+  position: fixed;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+  z-index: 50;
+  border-radius: 2px;
+  animation: confettiFall var(--cduration,3s) var(--cdelay,0s) ease-in forwards;
+}
+@keyframes confettiFall {
+  0%   { transform: translateY(-20px) rotate(0deg) scaleX(1); opacity: 1; }
+  100% { transform: translateY(100vh)  rotate(var(--crot,720deg)) scaleX(var(--cscale,-1)); opacity: 0; }
+}
+
+/* ─── Micro particles ─── */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: particlePulse var(--pduration,3s) var(--pdelay,0s) ease-in-out infinite;
+}
+@keyframes particlePulse {
+  0%,100% { transform: scale(1)   translate(0,0); opacity: 0.35; }
+  50%      { transform: scale(1.5) translate(var(--px,10px),var(--py,-10px)); opacity: 0.85; }
+}
+
+/* ─── Stardust / sparkle ring ─── */
+@keyframes sparkleSpin {
+  0%   { transform: rotate(0deg)   scale(1); opacity: 0.8; }
+  50%  { transform: rotate(180deg) scale(1.2); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1); opacity: 0.8; }
+}
+
+/* ─── Glow pulse ─── */
+@keyframes glowPulse {
+  0%,100% { box-shadow: 0 0 40px rgba(244,63,94,0.4); }
+  50%     { box-shadow: 0 0 80px rgba(244,63,94,0.85), 0 0 140px rgba(244,63,94,0.25); }
+}
+
+/* ─── Subtle float ─── */
+@keyframes gentleFloat {
+  0%,100% { transform: translateY(0px) rotate(0deg); }
+  33%     { transform: translateY(-12px) rotate(-3deg); }
+  66%     { transform: translateY(-6px)  rotate(2deg); }
+}
+
+/* ─── Ripple on button click ─── */
+@keyframes ripple {
+  0%   { transform: scale(0);   opacity: 0.6; }
+  100% { transform: scale(4);   opacity: 0; }
+}
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  animation: ripple 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+/* ─── Buttons ─── */
+.btn-romantic {
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  outline: none;
+  border: none;
+}
+.btn-romantic:active { transform: scale(0.95); }
+
+/* ─── Reduce-motion override ─── */
+@media (prefers-reduced-motion: reduce) {
+  .heart-float, .rose-petal, .confetti-piece, .particle { animation-duration: 0.01ms !important; }
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
