@@ -259,9 +259,9 @@ export default function BirthdayIntro({ onContinue }) {
           <RomanticButton
             id="birthday-continue-btn"
             variant="primary"
-            onClick={(e) => {
-              voice.speakHurryIntro();
-              onContinue?.(e);
+            onClick={() => {
+              try { voice.speakHurryIntro(); } catch {}
+              onContinue?.();
             }}
             className="text-lg px-10 py-5"
           >

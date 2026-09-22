@@ -1,4 +1,4 @@
-// ─── Browser Web Speech API Voice Assistant (100% Frontend - No Backend Required) ───
+// ─── Browser Web Speech API Voice Assistant (100% Non-blocking Frontend Speech) ───
 
 class VoiceAssistant {
   constructor() {
@@ -11,41 +11,48 @@ class VoiceAssistant {
 
   loadVoices() {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      this.voices = window.speechSynthesis.getVoices();
+      try {
+        this.voices = window.speechSynthesis.getVoices();
+      } catch {
+        // ignore voice loading failure
+      }
     }
   }
 
   speak(text, options = {}) {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
 
-    try {
-      window.speechSynthesis.cancel(); // Stop any ongoing speech immediately
+    // Use setTimeout so speech synthesis never blocks React state changes / navigation
+    setTimeout(() => {
+      try {
+        window.speechSynthesis.cancel(); // Stop any ongoing speech immediately
 
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = options.rate || 0.92;   // Gentle, clear pacing
-      utterance.pitch = options.pitch || 1.15;  // Sweet, warm romantic pitch
-      utterance.volume = options.volume || 1.0;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = options.rate || 0.92;   // Gentle, clear pacing
+        utterance.pitch = options.pitch || 1.15;  // Sweet, warm romantic pitch
+        utterance.volume = options.volume || 1.0;
 
-      // Select sweet natural English voice if available
-      const sweetVoice = this.voices.find(
-        (v) =>
-          v.lang.startsWith('en') &&
-          (v.name.includes('Natural') ||
-            v.name.includes('Google') ||
-            v.name.includes('Samantha') ||
-            v.name.includes('Victoria') ||
-            v.name.includes('Female') ||
-            v.name.includes('Karen'))
-      ) || this.voices.find((v) => v.lang.startsWith('en'));
+        // Select sweet natural English voice if available
+        const sweetVoice = this.voices.find(
+          (v) =>
+            v.lang.startsWith('en') &&
+            (v.name.includes('Natural') ||
+              v.name.includes('Google') ||
+              v.name.includes('Samantha') ||
+              v.name.includes('Victoria') ||
+              v.name.includes('Female') ||
+              v.name.includes('Karen'))
+        ) || this.voices.find((v) => v.lang.startsWith('en'));
 
-      if (sweetVoice) {
-        utterance.voice = sweetVoice;
+        if (sweetVoice) {
+          utterance.voice = sweetVoice;
+        }
+
+        window.speechSynthesis.speak(utterance);
+      } catch {
+        // Ignore if browser restricts speech
       }
-
-      window.speechSynthesis.speak(utterance);
-    } catch {
-      // Ignore if browser restricts speech prior to user interaction
-    }
+    }, 10);
   }
 
   // Pre-configured voice events requested by user:

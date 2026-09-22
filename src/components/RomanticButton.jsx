@@ -48,8 +48,8 @@ export function RomanticButton({ onClick, children, className = '', variant = 'p
 
   const handleClick = (e) => {
     if (disabled) return;
-    sounds.playPop();
-    addRipple(e);
+    try { sounds.playPop(); } catch {}
+    try { addRipple(e); } catch {}
     onClick?.(e);
   };
 
