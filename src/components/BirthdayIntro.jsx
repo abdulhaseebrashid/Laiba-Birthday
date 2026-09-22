@@ -3,6 +3,8 @@ import { Sparkles, Heart } from 'lucide-react';
 import AnimatedBackground from './AnimatedBackground';
 import FloatingHearts from './FloatingHearts';
 import { RomanticButton } from './RomanticButton';
+import { sounds } from '../utils/soundEffects';
+
 
 // ─── Candle flame ─────────────────────────────────────────────────────────
 function Candle({ delay = 0 }) {

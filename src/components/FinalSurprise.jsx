@@ -6,6 +6,8 @@ import FloatingHearts from './FloatingHearts';
 import Confetti from './Confetti';
 import { RomanticButton } from './RomanticButton';
 import { birthdayMessage, finalSurpriseMessage } from '../data/questions';
+import { sounds } from '../utils/soundEffects';
+
 
 // ─── Animated paragraph reveal ────────────────────────────────────────────
 function AnimatedMessage({ text }) {
@@ -158,6 +160,10 @@ export default function FinalSurprise() {
   useEffect(() => {
     const t = setTimeout(() => setShowConfetti(false), 5500);
     return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    sounds.playCelebration();
   }, []);
 
   const handleSurprise = () => {

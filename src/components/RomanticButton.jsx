@@ -1,5 +1,6 @@
-import { useState, useRef, useCallback, useId } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { motion, useSpring } from 'motion/react';
+import { sounds } from '../utils/soundEffects';
 
 // ─── Ripple effect on click ───────────────────────────────────────────────
 function useRipple() {
@@ -47,6 +48,7 @@ export function RomanticButton({ onClick, children, className = '', variant = 'p
 
   const handleClick = (e) => {
     if (disabled) return;
+    sounds.playPop();
     addRipple(e);
     onClick?.(e);
   };
@@ -102,6 +104,7 @@ export function EscapingButton({ containerRef, onClick, children, id, variant = 
     const now = Date.now();
     if (now - lastEsc.current < 250) return;
     lastEsc.current = now;
+    sounds.playEscape();
 
     if (!containerRef.current || !btnRef.current) return;
     const box = containerRef.current.getBoundingClientRect();
@@ -146,7 +149,10 @@ export function EscapingButton({ containerRef, onClick, children, id, variant = 
       style={{ ...styleMap[variant], x: springX, y: springY, touchAction: 'none' }}
       onMouseMove={handleMouseMove}
       onTouchStart={handleTouchStart}
-      onClick={onClick}
+      onClick={(e) => {
+        sounds.playPop();
+        onClick?.(e);
+      }}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.95 }}
     >
@@ -154,3 +160,4 @@ export function EscapingButton({ containerRef, onClick, children, id, variant = 
     </motion.button>
   );
 }
+
