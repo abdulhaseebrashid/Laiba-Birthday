@@ -5,7 +5,7 @@ import AnimatedBackground from './AnimatedBackground';
 import FloatingHearts from './FloatingHearts';
 import { RomanticButton } from './RomanticButton';
 import { voice } from '../utils/voiceAssistant';
-
+import { sounds } from '../utils/soundEffects';
 
 // ─── Rock-solid Typewriter with cursor ────────────────────────────────────
 function TypewriterText({ text, delay = 0, speed = 45, className = '' }) {
@@ -147,6 +147,10 @@ function QuoteCarousel() {
 
 // ─── Main Welcome Screen ──────────────────────────────────────────────────
 export default function WelcomeScreen({ onStart }) {
+  useEffect(() => {
+    sounds.playHappyBirthdayTune();
+  }, []);
+
   return (
     <div className="page-container min-h-screen">
       <AnimatedBackground />
@@ -210,7 +214,7 @@ export default function WelcomeScreen({ onStart }) {
             className="block text-6xl md:text-7xl lg:text-8xl gradient-text font-bold"
             style={{ textShadow: '0 0 60px rgba(244,63,94,0.28)' }}
           >
-            Hey Liaba
+            Hey Laiba
           </span>
         </motion.h1>
 
@@ -335,12 +339,13 @@ export default function WelcomeScreen({ onStart }) {
           </RomanticButton>
 
           <p className="mt-3 text-xs text-white/40 tracking-widest font-light">
-            Made with ❤️ just for you, Liaba
+            Made with ❤️ just for you, Laiba
           </p>
         </motion.div>
       </div>
     </div>
   );
 }
+
 
 

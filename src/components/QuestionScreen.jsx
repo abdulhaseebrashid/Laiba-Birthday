@@ -185,7 +185,7 @@ function SpecialQuestionScreen({ question, questionIndex, totalQuestions, onAnsw
                   id={`q6-btn-${idx}`}
                   variant={idx === 0 ? 'primary' : idx === 1 ? 'fire' : 'fire'}
                   onClick={() => {
-                    voice.speakSpecialOption(btn.label);
+                    voice.speakSpecialOption(idx);
                     handleAnswer(btn.label);
                   }}
                   className={idx > 0 ? 'text-sm md:text-base' : ''}
@@ -317,7 +317,10 @@ export default function QuestionScreen({ question, questionIndex, totalQuestions
             <RomanticButton
               id={`yes-btn-${question.id}`}
               variant="primary"
-              onClick={() => handleAnswer(question.yesButton.label)}
+              onClick={() => {
+                voice.speakPositiveAnswer(question.id);
+                handleAnswer(question.yesButton.label);
+              }}
             >
               <span className="flex items-center gap-2">
                 <Heart size={15} className="inline" fill="currentColor" />

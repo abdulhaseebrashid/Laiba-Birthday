@@ -167,6 +167,7 @@ export default function FinalSurprise() {
   }, []);
 
   const handleSurprise = () => {
+    voice.speakFinalSurprise();
     setShowModal(true);
     setShowConfetti(true);
     setTimeout(() => setShowConfetti(false), 4500);
@@ -199,7 +200,7 @@ export default function FinalSurprise() {
             <Heart size={20} fill="currentColor" className="text-rose-400" />
           </motion.div>
           <span className="text-xs tracking-widest uppercase text-white/35 font-medium">
-            For Liaba · September 23rd · With Love
+            For Laiba · September 23rd · With Love
           </span>
           <motion.div
             animate={{ scale: [1, 1.2, 1] }}
@@ -221,7 +222,7 @@ export default function FinalSurprise() {
           >
             Happy Birthday,
             <br />
-            Liaba ❤️
+            Laiba ❤️
           </h1>
         </motion.div>
 

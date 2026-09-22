@@ -52,10 +52,44 @@ class VoiceAssistant {
 
   // 1. Birthday Wish Voice on "Start the surprise" button click
   speakBirthdayWish() {
-    this.speak("Happy Birthday Liaba! I love you so much, my sweetheart! Let's start your surprise!");
+    this.speak("Happy Birthday Laiba! I love you so much, my sweetheart! Let's start your surprise!");
   }
 
-  // 2. Playful Deny / Hesitant Voice Lines per question
+  // 2. Click on "There's something I want to ask you..." button
+  speakHurryIntro() {
+    this.speak("Ahan, you seem in a hurry to see your surprise, my love!");
+  }
+
+  // 3. Question positive answers voice responses
+  speakPositiveAnswer(questionId) {
+    switch (questionId) {
+      case 1:
+        // Q1: Do you love me?
+        this.speak("I love you too babe! Hehe shaka laka boom boom, moving to second question!");
+        break;
+      case 2:
+        // Q2: Am I your favorite person?
+        this.speak("I know babe, I am your favorite person! Numnum!");
+        break;
+      case 3:
+        // Q3: Can I get one more year together?
+        this.speak("We will be together for our entire life, Laiba!");
+        break;
+      case 4:
+        // Q4: Are you ready for your birthday surprise?
+        this.speak("I am gonna eat your lips babe!");
+        break;
+      case 5:
+        // Q5: Will you keep smiling all day?
+        this.speak("We will laugh all night when you are in my arms!");
+        break;
+      default:
+        this.speak("I love you so much Laiba!");
+        break;
+    }
+  }
+
+  // 4. Playful Deny / Hesitant Voice Lines per question
   speakDenyResponse(questionId) {
     switch (questionId) {
       case 1:
@@ -65,7 +99,7 @@ class VoiceAssistant {
         this.speak("Hey! You know the right answer is me!");
         break;
       case 3:
-        this.speak("Aww come on, Liaba! You know I am your favorite person!");
+        this.speak("Aww come on, Laiba! You know I am your favorite person!");
         break;
       case 4:
         this.speak("No excuses! One hundred kisses are minimum today!");
@@ -79,15 +113,23 @@ class VoiceAssistant {
     }
   }
 
-  // 3. Romantic & Cheeky Voice for Q6 Bedroom Buttons
-  speakSpecialOption(optionLabel) {
-    if (optionLabel.includes('harder... yeah')) {
-      this.speak("Mmm... yes baby! Tonight is going to be wild!");
-    } else if (optionLabel.includes('harder')) {
-      this.speak("Ooh, harder it is! You are so hot, Liaba!");
+  // 5. Bedroom Question 6 Buttons
+  speakSpecialOption(btnIndex) {
+    if (btnIndex === 0) {
+      // Yes babe 😘
+      this.speak("Sure, we'll break our bed sexy!");
+    } else if (btnIndex === 1) {
+      // Yes babe, harder 🔥
+      this.speak("I'm gonna break your back honey!");
     } else {
-      this.speak("Yay! Yes babe, I can't wait for tonight with you!");
+      // Yeah, harder... yeah 🥵
+      this.speak("I'm gonna eat you tonight sweetheart!");
     }
+  }
+
+  // 6. One last surprise click
+  speakFinalSurprise() {
+    this.speak("Your smile is precious. You are precious. Kissing your eyes, Laiba.");
   }
 }
 

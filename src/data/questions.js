@@ -63,7 +63,7 @@ export const questions = [
 ];
 
 // ✏️ EASY TO EDIT — Change your birthday message here
-export const birthdayMessage = `Liaba, on your special day — September 23rd — I want you to know that you are the most breathtakingly beautiful, endlessly kind, and genuinely wonderful soul I have ever been lucky enough to love.
+export const birthdayMessage = `Laiba, on your special day — September 23rd — I want you to know that you are the most breathtakingly beautiful, endlessly kind, and genuinely wonderful soul I have ever been lucky enough to love.
 
 Every single day with you feels like the universe decided to be generous — gifting me something I will never deserve but will always cherish. Your smile is my favorite sunrise. Your laugh is my favorite song. And the way you look at me makes me feel like the luckiest person alive.
 

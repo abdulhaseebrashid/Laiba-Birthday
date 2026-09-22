@@ -47,7 +47,7 @@ function BirthdayCake() {
           boxShadow: '0 4px 20px rgba(244,63,94,0.45)',
         }}
       >
-        LIABA ❤️
+        LAIBA ❤️
       </motion.div>
 
       {/* Tier 2 — middle */}
@@ -196,7 +196,7 @@ export default function BirthdayIntro({ onContinue }) {
             transition={{ delay: 0.5, duration: 0.7 }}
             className="block text-white text-5xl md:text-6xl lg:text-7xl mt-1"
           >
-            Liaba <span className="text-rose-400">❤️</span>
+            Laiba <span className="text-rose-400">❤️</span>
           </motion.span>
         </motion.h1>
 
@@ -259,7 +259,10 @@ export default function BirthdayIntro({ onContinue }) {
           <RomanticButton
             id="birthday-continue-btn"
             variant="primary"
-            onClick={onContinue}
+            onClick={(e) => {
+              voice.speakHurryIntro();
+              onContinue?.(e);
+            }}
             className="text-lg px-10 py-5"
           >
             There&apos;s something I want to ask you... 💌
