@@ -4,6 +4,8 @@ import { Heart, Sparkles, Star } from 'lucide-react';
 import AnimatedBackground from './AnimatedBackground';
 import FloatingHearts from './FloatingHearts';
 import { RomanticButton } from './RomanticButton';
+import { voice } from '../utils/voiceAssistant';
+
 
 // ─── Rock-solid Typewriter with cursor ────────────────────────────────────
 function TypewriterText({ text, delay = 0, speed = 45, className = '' }) {
@@ -319,7 +321,10 @@ export default function WelcomeScreen({ onStart }) {
           <RomanticButton
             id="start-surprise-btn"
             variant="primary"
-            onClick={onStart}
+            onClick={(e) => {
+              voice.speakBirthdayWish();
+              onStart?.(e);
+            }}
             className="text-lg px-10 py-4 shadow-2xl"
           >
             <span className="flex items-center gap-3">

@@ -4,6 +4,8 @@ import { Heart, Flame } from 'lucide-react';
 import ProgressIndicator from './ProgressIndicator';
 import { RomanticButton, EscapingButton } from './RomanticButton';
 import AnimatedBackground from './AnimatedBackground';
+import { voice } from '../utils/voiceAssistant';
+
 
 // ─── Per-question decoration configs ─────────────────────────────────────
 const Q_DECO = {
@@ -182,7 +184,10 @@ function SpecialQuestionScreen({ question, questionIndex, totalQuestions, onAnsw
                 <RomanticButton
                   id={`q6-btn-${idx}`}
                   variant={idx === 0 ? 'primary' : idx === 1 ? 'fire' : 'fire'}
-                  onClick={() => handleAnswer(btn.label)}
+                  onClick={() => {
+                    voice.speakSpecialOption(btn.label);
+                    handleAnswer(btn.label);
+                  }}
                   className={idx > 0 ? 'text-sm md:text-base' : ''}
                 >
                   <span className="flex items-center gap-2">
@@ -320,12 +325,13 @@ export default function QuestionScreen({ question, questionIndex, totalQuestions
               </span>
             </RomanticButton>
 
-            {/* No/hesitant button — always escaping */}
+            {/* No/hesitant button — always escaping with voice feedback */}
             {question.noButton && (
               <EscapingButton
                 id={`no-btn-${question.id}`}
                 containerRef={containerRef}
                 variant="secondary"
+                onEscape={() => voice.speakDenyResponse(question.id)}
                 onClick={() => handleAnswer(question.noButton.label)}
               >
                 {question.noButton.label}

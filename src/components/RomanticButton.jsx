@@ -79,7 +79,7 @@ export function RomanticButton({ onClick, children, className = '', variant = 'p
 // ─── Escaping button — moves away on hover OR tap ────────────────────────
 const PADDING = 18;
 
-export function EscapingButton({ containerRef, onClick, children, id, variant = 'secondary' }) {
+export function EscapingButton({ containerRef, onClick, onEscape, children, id, variant = 'secondary' }) {
   const btnRef    = useRef(null);
   const lastEsc   = useRef(0);
   const springX   = useSpring(0, { stiffness: 200, damping: 20, mass: 0.7 });
@@ -105,6 +105,7 @@ export function EscapingButton({ containerRef, onClick, children, id, variant = 
     if (now - lastEsc.current < 250) return;
     lastEsc.current = now;
     sounds.playEscape();
+    onEscape?.();
 
     if (!containerRef.current || !btnRef.current) return;
     const box = containerRef.current.getBoundingClientRect();
@@ -124,7 +125,8 @@ export function EscapingButton({ containerRef, onClick, children, id, variant = 
 
     springX.set(newX - originX);
     springY.set(newY - originY);
-  }, [containerRef, springX, springY]);
+  }, [containerRef, springX, springY, onEscape]);
+
 
   // Desktop proximity
   const handleMouseMove = useCallback((e) => {
